@@ -18,7 +18,7 @@ public class Network {
         return this.outputLayer.feedForward(this.hiddenLayer.feedForward(inputs));
     }
 
-    public void backpropagate(List<Double> inputs, List<Double> desiredOutputs){
+    public void backpropagate(List<Double> inputs, List<Integer> desiredOutputs){
         this.feedForward(inputs);
         List<Double> outputDeltas = new ArrayList<Double>();
         for(int i = 0; i < this.outputLayer.neurons.size(); i++){
@@ -44,13 +44,13 @@ public class Network {
         }
     }
 
-    public void train(List<List<Double>> inputs, List<List<Double>> outputs){
+    public void train(List<List<Double>> inputs, List<List<Integer>> outputs){
         for(int i = 0; i < inputs.size(); i++){
             this.backpropagate(inputs.get(i), outputs.get(i));
         }
     }
 
-    public double calculateError(List<Double> desiredOutputs){
+    public double calculateError(List<Integer> desiredOutputs){
         double totalError = 0.0;
         for(int i = 0; i < this.outputLayer.neurons.size(); i++){
             totalError += this.outputLayer.neurons.get(i).calculateError(desiredOutputs.get(i));
